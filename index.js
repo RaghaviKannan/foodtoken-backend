@@ -12,7 +12,12 @@ const JWT_SC = process.env.secret_key
 const cors = require('cors')
 
 app.use(express.json())
-app.use(cors())
+app.use(
+    cors({
+      orgin: "https://famous-strudel-4e321b.netlify.app",
+    })
+  );
+  
 const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
