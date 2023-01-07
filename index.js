@@ -95,7 +95,7 @@ app.post('/user/forgotpassword', async function (req, res, next) {
                 from: "d73330670@gmail.com",
                 to: user.email,
                 subject: "Reset your password",
-                html: `<p>Click <a href="http://localhost:3000/reset-password?token=${resettoken}">here</a> to reset your password.</p>`
+                html: `<p>Click <a href="https://famous-strudel-4e321b.netlify.app/reset-password-page?token=${resettoken}">here</a> to reset your password.</p>`
             }
             await connection.close()
             res.json({ message: "Email sent", token: resettoken })
@@ -114,22 +114,22 @@ app.post('/user/forgotpassword', async function (req, res, next) {
     }
 })
 
-app.get('/reset-password', async (req, res) => {
-    try {
-        const token = req.query.token
-        const connection = await mongoclient.connect(URL);
-        const db = connection.db("foodtoken")
-        const validtoken = await db.collection("users").findOne({ token: token });
-        if (validtoken) {
-            res.redirect(`http://localhost:3001/reset-password-page?token=${token}`);
-        }
-        else {
-            console.log("Token invalid")
-        }
-    } catch (error) {
-        console.log(error)
-    }
-})
+// app.get('/reset-password', async (req, res) => {
+//     try {
+//         const token = req.query.token
+//         const connection = await mongoclient.connect(URL);
+//         const db = connection.db("foodtoken")
+//         const validtoken = await db.collection("users").findOne({ token: token });
+//         if (validtoken) {
+//             res.redirect(`https://famous-strudel-4e321b.netlify.app/reset-password-page?token=${token}`);
+//         }
+//         else {
+//             console.log("Token invalid")
+//         }
+//     } catch (error) {
+//         console.log(error)
+//     }
+// })
 
 app.post('/reset-password-page', async (req, res) => {
     try {
